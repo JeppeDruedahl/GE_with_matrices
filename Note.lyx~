@@ -1,0 +1,1149 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\begin_preamble
+% general
+\usepackage[titletoc]{appendix}
+\usepackage{graphicx}
+\usepackage{placeins}
+\usepackage{tikz}
+
+% algorithm
+\usepackage[ruled,vlined,linesnumbered]{algorithm2e}
+\IncMargin{2.5cm}
+\DecMargin{2cm}
+\usepackage{fullwidth}
+\usepackage{enumitem}
+\setlist{leftmargin=1.7cm}
+
+% tables
+\usepackage{tabularx, siunitx, multirow, booktabs}
+\begingroup
+% Allow `_` and `:` in macro names (LaTeX3 style)
+\catcode`\_=11
+\catcode`\:=11
+% Internal code of `S`
+\gdef\tabularxcolumn#1{%
+    >{\__siunitx_table_collect_begin:Nn S{} }%
+    p{#1}%  <- this is different (is `c` in normal `S`)
+    <{\__siunitx_table_print:}%
+}
+\endgroup
+
+% figures
+\usepackage{subfig}
+\usepackage{caption}
+\captionsetup[subfloat]{position=top}
+
+% footnotes
+\setlength{\skip\footins}{1cm}
+\usepackage[hang,splitrule]{footmisc}
+\setlength{\footnotemargin}{0.3cm} %.5
+\setlength{\footnotesep}{0.4cm}
+\end_preamble
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "palatino" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize 12
+\spacing onehalf
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine natbib
+\cite_engine_type authoryear
+\biblio_style plainnat
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date true
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 3cm
+\topmargin 3cm
+\rightmargin 3cm
+\bottommargin 3cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation skip
+\defskip smallskip
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+
+\series bold
+Solving Infinite Horizon Consumption-Saving Models
+\end_layout
+
+\begin_layout Section
+Simplest Model
+\end_layout
+
+\begin_layout Subsection
+Setup
+\end_layout
+
+\begin_layout Standard
+Consider the problem
+\begin_inset Formula 
+\begin{eqnarray}
+v(e_{t},a_{t-1}) & = & u(c^{\ast}(e_{t},a_{t-1}))+\overline{v}(e_{t},a^{\ast}(e_{t},a_{t-1}))\label{eq:v}\\
+\overline{v}(e_{t},a_{t}) & = & \beta\mathbb{E}_{t}[v(e_{t},y_{t})]\label{eq:vbar}\\
+a^{\ast}(e_{t},a_{t-1}) & = & (1+r)a_{t-1}+we_{t}-c^{\ast}(e_{t},a_{t-1})\label{eq:a}
+\end{eqnarray}
+
+\end_inset
+
+where
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $e_{t}$
+\end_inset
+
+ is the productivity level
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $a_{t-1}$
+\end_inset
+
+ is end-of-period savings
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $v$
+\end_inset
+
+ is the 
+\emph on
+pre-decision
+\emph default
+ value function
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $\overline{v}$
+\end_inset
+
+ is the 
+\emph on
+post-decision
+\emph default
+ value function
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $c^{\ast}$
+\end_inset
+
+ is the 
+\emph on
+optimal
+\emph default
+ consumption function
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $a^{\ast}$
+\end_inset
+
+ is the 
+\emph on
+optimal
+\emph default
+ saving function
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $r$
+\end_inset
+
+ is the interest rate
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $w$
+\end_inset
+
+ is the wage rate
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $u(c)=\frac{c^{1-\rho}}{1-\rho}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+and
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $e_{t}$
+\end_inset
+
+ is indexed by 
+\begin_inset Formula $i$
+\end_inset
+
+ and lives on the grid 
+\begin_inset Formula $\mathcal{G}_{e}=\{e^{1},e^{2},\dots,e^{\#_{e}}\}$
+\end_inset
+
+ and transitions exogenously with the transition matrix
+\begin_inset Formula 
+\[
+\Pi^{e}=\left[\begin{array}{ccccc}
+\pi_{11}^{e} & \cdots & \cdots & \cdots & \pi_{1\#_{y}}^{e}\\
+\vdots & \ddots &  &  & \vdots\\
+\vdots &  & \pi_{ii_{+}}^{e} &  & \vdots\\
+\vdots &  &  & \ddots & \vdots\\
+\pi_{\#_{y}1}^{e} & \cdots & \cdots & \cdots & \pi_{\#_{y}\#_{y}}^{e}
+\end{array}\right]
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $\pi_{ii+}^{e}=\text{Pr}[e_{t+1}=e^{i+1}|e_{t}=e^{i}]$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $a_{t}$
+\end_inset
+
+ is indexed by 
+\begin_inset Formula $j$
+\end_inset
+
+ and lives on the grid 
+\begin_inset Formula $\mathcal{G}_{a}=\{a^{1},a^{2},\dots,a^{\#_{a}}\}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Standard solution method
+\end_layout
+
+\begin_layout Standard
+A 
+\emph on
+neccesary
+\emph default
+ and 
+\emph on
+sufficient
+\emph default
+ condition for interior saving choices, 
+\begin_inset Formula $a_{t}>0$
+\end_inset
+
+, is
+\begin_inset Formula 
+\begin{equation}
+c_{t}^{-\rho}=\beta(1+r)\mathbb{E}_{t}\left[c_{t+1}^{-\rho}\right]\label{eq:euler}
+\end{equation}
+
+\end_inset
+
+We can thus solve the model as follows:
+\end_layout
+
+\begin_layout Enumerate
+Guess on 
+\begin_inset Formula $a^{0}(e^{i},a^{j})$
+\end_inset
+
+ and set 
+\begin_inset Formula $n=0$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+Calculate the following, 
+\begin_inset Formula $\forall i,j$
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align*}
+c(e^{i},a^{j}) & =a^{0}(e^{i},a^{j})-(1+r)a^{j}-we^{i}\\
+v_{a}(e^{i},e^{j}) & =(1+r)c(e^{i},a^{j})^{-\sigma}\\
+q(e^{i},a^{j}) & =\sum_{i_{+}=1}^{\#_{e}}\pi_{ii+}^{e}v_{a}(e^{i},a^{j})\\
+\tilde{c}^{ij} & =q(e^{i},a^{j})^{-\sigma}\\
+\tilde{m}^{ij} & =\tilde{c}^{ij}+a^{j}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Interpolate 
+\begin_inset Formula $\{\tilde{m}^{ij},a^{j}\}_{j=1}^{\#_{a}}$
+\end_inset
+
+ at 
+\begin_inset Formula $m^{j}=(1+r)a^{j}+we^{i}$
+\end_inset
+
+ to find 
+\begin_inset Formula $a^{n+1}(e^{i},a^{j})$
+\end_inset
+
+, 
+\begin_inset Formula $\forall i,j$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Enforce borrowing constraint 
+\begin_inset Formula $a^{n+1}(e^{i},0)=\max(a^{n+1}(e^{i},0),0),\forall i$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+If 
+\begin_inset Formula $\text{sup}\left|a^{n+1}-a^{n}\right|>\epsilon$
+\end_inset
+
+ return to step 2 with 
+\begin_inset Formula $n=n+1$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Terminate with 
+\begin_inset Formula $a^{\ast}(e^{i},a^{j})=a^{n}(e^{i},a^{j})$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Standard simulation method
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $\boldsymbol{e}^{sim}$
+\end_inset
+
+ and 
+\begin_inset Formula $\boldsymbol{a}^{sim}$
+\end_inset
+
+ be vectors of length 
+\begin_inset Formula $\#_{sim}$
+\end_inset
+
+.
+ The model is simulated as:
+\end_layout
+
+\begin_layout Enumerate
+Draw 
+\begin_inset Formula $\boldsymbol{e}^{sim}$
+\end_inset
+
+ from the ergodic distribution, set 
+\begin_inset Formula $\boldsymbol{a}^{sim,0}=\boldsymbol{0}$
+\end_inset
+
+ and set 
+\begin_inset Formula $n=0$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Find 
+\begin_inset Formula $\boldsymbol{a}^{sim,n+1}=a^{\ast}(\boldsymbol{e}^{sim},\boldsymbol{a}^{sim,n})$
+\end_inset
+
+ using linear interpolation in the second dimension
+\end_layout
+
+\begin_layout Enumerate
+Terminate with 
+\begin_inset Formula $\boldsymbol{a}^{sim,\ast}=\boldsymbol{a}^{sim,n+1}$
+\end_inset
+
+ if 
+\begin_inset Formula 
+\[
+\left|\text{mean}(\boldsymbol{a}^{sim,n+1})-\text{mean}(\boldsymbol{a}^{sim,n})\right|<\epsilon\land\left|\text{var}(\boldsymbol{a}_{+}^{sim,n+1})-\text{var}(\boldsymbol{a}^{sim,n})\right|<\epsilon
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Update 
+\begin_inset Formula $\boldsymbol{e}^{sim}$
+\end_inset
+
+ stochastically using the transition probabilities and return to step 2
+\end_layout
+
+\begin_layout Subsection
+Matrix form
+\end_layout
+
+\begin_layout Standard
+We have that an element of the 
+\emph on
+post-decision value function
+\emph default
+ is
+\begin_inset Formula 
+\begin{align}
+\overline{v}_{ij} & =w(y_{i},a_{j})\label{eq:w_element}\\
+ & =\beta\sum_{i_{+}=1}^{\#_{y}}\pi_{ii_{+}}v(y_{i_{+}},a_{j})\nonumber \\
+ & =\beta\sum_{k=1}^{\#_{y}}\pi_{ii_{+}}v_{i_{+}j}\nonumber 
+\end{align}
+
+\end_inset
+
+In matrix form eq.
+ 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:vbar"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ thus becomes
+\begin_inset Formula 
+\begin{align}
+\boldsymbol{\overline{v}} & =\beta\tilde{\Pi}\boldsymbol{v}\label{eq:w_mat}
+\end{align}
+
+\end_inset
+
+where
+\begin_inset Formula 
+\[
+\boldsymbol{\overline{v}}=\left[\begin{array}{c}
+\overline{v}_{11}\\
+\vdots\\
+\overline{v}_{1\#_{a}}\\
+\vdots\\
+\overline{v}_{\#_{y}\#_{a}}
+\end{array}\right],\boldsymbol{v}=\left[\begin{array}{c}
+v_{11}\\
+\vdots\\
+v_{1\#_{a}}\\
+\vdots\\
+v_{\#_{y}\#_{a}}
+\end{array}\right]
+\]
+
+\end_inset
+
+and
+\begin_inset Formula 
+\[
+\tilde{\Pi}=\Pi\varotimes\boldsymbol{I}_{\#_{a}\times\#_{a}}=\left[\begin{array}{ccc}
+\pi_{11}\boldsymbol{I}_{\#_{a}\times\#_{a}} & \cdots & \pi_{1\#_{y}}\boldsymbol{I}_{\#_{a}\times\#_{a}}\\
+\vdots & \ddots & \vdots\\
+\pi_{\#_{y}1}\boldsymbol{I}_{\#_{a}\times\#_{a}} & \cdots & \pi_{\#_{y}\#_{y}}\boldsymbol{I}_{\#_{a}\times\#_{a}}
+\end{array}\right]
+\]
+
+\end_inset
+
+We have that en element of the 
+\emph on
+pre-decision value function
+\emph default
+ is
+\begin_inset Formula 
+\begin{equation}
+v_{ij}=u(c_{ij}^{\ast})+\sum_{j_{+}=1}^{\#_{a}}q_{ijj_{+}}\overline{v}_{ij_{+}}\label{eq:v_element}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $a_{ij}^{\ast}=c^{\ast}(y_{i},a_{j})$
+\end_inset
+
+ and 
+\begin_inset Formula $q_{ijk}$
+\end_inset
+
+ are the weights implied by linear interpolation of 
+\begin_inset Formula $a^{\ast}(y_{t},a_{t-1})$
+\end_inset
+
+ at 
+\begin_inset Formula $a_{ij}^{\text{\ensuremath{\ast}}}=a^{\ast}(y_{i},a_{j})$
+\end_inset
+
+ given by
+\begin_inset Formula 
+\[
+q_{ijk}=\begin{cases}
+\frac{a_{ij}^{\text{\ensuremath{\ast}}}-a^{j_{+}-1}}{a^{j_{+}}-a^{j_{+}-1}} & \text{if }j_{+}>1,\text{and }a_{ij}^{\text{\ensuremath{\ast}}}\in[a^{j_{+}-1},a^{j_{+}}]\\
+\frac{a_{ij}^{\text{\ensuremath{\ast}}}-a^{j_{+}}}{a^{j_{+}+1}-a^{j_{+}}} & \text{if }j_{+}<\#_{a},\text{and }a_{ij}^{\text{\ensuremath{\ast}}}\in[a^{\#_{a}},a^{\#_{a}+1}]\\
+0 & \text{else}
+\end{cases}
+\]
+
+\end_inset
+
+In matrix form eq.
+ 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:v"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ becomes
+\begin_inset Formula 
+\begin{equation}
+\boldsymbol{v}=u(\boldsymbol{c}^{\ast})+Q\overline{\boldsymbol{v}}\label{eq:v_mat}
+\end{equation}
+
+\end_inset
+
+where
+\begin_inset Formula 
+\[
+\boldsymbol{c}^{\ast}=\left[\begin{array}{c}
+c_{11}^{\ast}\\
+\vdots\\
+c_{1\#_{a}}^{\ast}\\
+\vdots\\
+c_{\#_{y}\#_{a}}^{\ast}
+\end{array}\right]
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+and
+\begin_inset Formula 
+\[
+Q=\left[\begin{array}{cccc}
+Q_{1} & \boldsymbol{0} & \boldsymbol{0} & \boldsymbol{0}\\
+\boldsymbol{0} & Q_{2} & \boldsymbol{0} & \boldsymbol{0}\\
+\boldsymbol{0} & \boldsymbol{0} & \ddots & \boldsymbol{0}\\
+\boldsymbol{0} & \boldsymbol{0} & \boldsymbol{0} & Q_{\#_{y}}
+\end{array}\right]
+\]
+
+\end_inset
+
+with
+\begin_inset Formula 
+\[
+Q_{i}=\left[\begin{array}{ccccc}
+q_{i11} & \cdots & \cdots & \cdots & q_{i1\#_{a}}\\
+\vdots & \ddots &  &  & \vdots\\
+\vdots &  & q_{ijj_{+}} &  & \vdots\\
+\vdots &  &  & \ddots & \vdots\\
+q_{i\#_{a}1} & \cdots & \cdots & \cdots & q_{i\#_{a}\#_{a}}
+\end{array}\right]
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Alternative solution method(s)
+\end_layout
+
+\begin_layout Standard
+Together
+\begin_inset Formula 
+\begin{align}
+\boldsymbol{v} & =u(\boldsymbol{c}^{\ast})+\beta Q\tilde{\Pi}\boldsymbol{v}\label{eq:v_total}\\
+ & =u(\boldsymbol{c}^{\ast})+\beta\Omega\boldsymbol{v}\nonumber 
+\end{align}
+
+\end_inset
+
+where
+\begin_inset Formula 
+\begin{align}
+\Omega & =Q\tilde{\Pi}=Q(\Pi\varotimes\boldsymbol{I}_{\#_{a}\times\#_{a}})\label{eq:Omega}\\
+ & =\left[\begin{array}{cccc}
+Q_{1} & \boldsymbol{0} & \boldsymbol{0} & \boldsymbol{0}\\
+\boldsymbol{0} & Q_{2} & \boldsymbol{0} & \boldsymbol{0}\\
+\boldsymbol{0} & \boldsymbol{0} & \ddots & \boldsymbol{0}\\
+\boldsymbol{0} & \boldsymbol{0} & \boldsymbol{0} & Q_{\#_{y}}
+\end{array}\right]\left[\begin{array}{ccc}
+\pi_{11}\boldsymbol{I}_{\#_{a}\times\#_{a}} & \cdots & \pi_{1\#_{y}}\boldsymbol{I}_{\#_{a}\times\#_{a}}\\
+\vdots & \ddots & \vdots\\
+\pi_{\#_{y}1}\boldsymbol{I}_{\#_{a}\times\#_{a}} & \cdots & \pi_{\#_{y}\#_{y}}\boldsymbol{I}_{\#_{a}\times\#_{a}}
+\end{array}\right]\nonumber 
+\end{align}
+
+\end_inset
+
+For given 
+\begin_inset Formula $\boldsymbol{c}^{\ast}$
+\end_inset
+
+ this implies
+\begin_inset Formula 
+\begin{equation}
+\boldsymbol{v}=(I-\beta\Omega)^{-1}u(\boldsymbol{c}^{\ast})\label{eq:v_sol}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We also have
+\begin_inset Formula 
+\begin{align}
+\boldsymbol{v} & =\lim_{T\rightarrow\infty}u(\boldsymbol{c}^{\ast})\left(\sum_{t=0}^{T}\left(\beta\Omega\right)^{t}\right)\label{eq:v_sim}\\
+ & \approx u(\boldsymbol{c}^{\ast})\left(\sum_{t=0}^{T}\left(\beta\Omega\right)^{t}\right)\nonumber 
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Solution method I:
+\end_layout
+
+\begin_layout Enumerate
+Guees on 
+\begin_inset Formula $\boldsymbol{v}^{0}$
+\end_inset
+
+ and set 
+\begin_inset Formula $n=0$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Calculate 
+\begin_inset Formula $\boldsymbol{v}_{a}$
+\end_inset
+
+ where
+\begin_inset Formula 
+\[
+\boldsymbol{v}_{a}=\left[\begin{array}{c}
+v_{a,11}\\
+\vdots\\
+v_{a,1\#_{a}}\\
+\vdots\\
+v_{a,\#_{y}\#_{a}}
+\end{array}\right]
+\]
+
+\end_inset
+
+ with
+\begin_inset Formula 
+\[
+v_{a,ij}=\begin{cases}
+\frac{v_{i(j+1)}^{n}-v_{ij}^{n}}{a^{j+1}-a^{j}} & \text{if }j=1\\
+\frac{v_{ij}^{n}-v_{i(j-1)}^{n}}{a^{j}-a^{j-1}} & \text{if }j=\#_{a}\\
+\frac{1}{2}\frac{v_{ij}^{n}-v_{i(j-1)}^{n}}{a^{j}-a^{j-1}}+\frac{1}{2}\frac{v_{ij}^{n}-v_{i(j-1)}^{n}}{a^{j}-a^{j-1}} & \text{else}
+\end{cases}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Compute
+\begin_inset Formula 
+\begin{align*}
+q(e^{i},a^{j}) & =\sum_{i_{+}=1}^{\#_{e}}\pi_{ii+}^{e}v_{a}(e^{i},a^{j})\\
+\tilde{c}^{ij} & =q(e^{i},a^{j})^{-\sigma}\\
+\tilde{m}^{ij} & =\tilde{c}^{ij}+a^{j}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Interpolate 
+\begin_inset Formula $\{\tilde{m}^{ij},a^{j}\}_{j=1}^{\#_{a}}$
+\end_inset
+
+ at 
+\begin_inset Formula $m^{j}=(1+r)a^{j}+we^{i}$
+\end_inset
+
+ to find 
+\begin_inset Formula $a(e^{i},a^{j})$
+\end_inset
+
+, 
+\begin_inset Formula $\forall ij$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Enforce borrowing constraint 
+\begin_inset Formula $a(e^{i},0)=\max(a(e^{i},0),0),\forall i$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Calculate 
+\begin_inset Formula $c(e^{i},a^{j})=a(e^{i},a^{j})-(1+r)a^{j}-we^{i}$
+\end_inset
+
+, 
+\begin_inset Formula $\forall ij$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Find
+\begin_inset Formula 
+\[
+\boldsymbol{v}^{n+1}=(I-\beta\Omega)^{-1}u(\boldsymbol{c})
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Termine if 
+\begin_inset Formula $\sup\left|\boldsymbol{v}^{n+1}-\boldsymbol{v}^{n}\right|<\epsilon$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Set 
+\begin_inset Formula $n=n+1$
+\end_inset
+
+ and return to step 2
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Solution method II:
+\end_layout
+
+\begin_layout Standard
+Same as method one, but where we in step 7 for some high enough 
+\begin_inset Formula $T$
+\end_inset
+
+ use
+\begin_inset Formula 
+\begin{align*}
+\boldsymbol{v} & \approx u(\boldsymbol{c})\left(\sum_{t=0}^{T}\left(\beta\Omega\right)^{t}\right)
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Observation: 
+\series default
+The 
+\begin_inset Formula $\Omega$
+\end_inset
+
+ is very sparse (lots) of zeros).
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Question: 
+\series default
+Can we provide some simple formulas for?
+\begin_inset Formula 
+\begin{align*}
+\Omega & =\\
+ & =?\\
+\Omega^{2} & =?\\
+\Omega^{3} & =?\\
+\vdots\\
+\Omega^{k} & =?
+\end{align*}
+
+\end_inset
+
+Target: Avoid multiplying large matrices, but construct them from smaller
+ matrices.
+\end_layout
+
+\begin_layout Standard
+In particular, might be able to provide formulas for different segments
+ of 
+\begin_inset Formula $\boldsymbol{v}$
+\end_inset
+
+as follows?
+\begin_inset Formula 
+\[
+\boldsymbol{v}_{i:}=\left[\begin{array}{c}
+v_{i1}\\
+\vdots\\
+v_{i\#_{a}}
+\end{array}\right]=?
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Idea:
+\series default
+ If so, this can be done in parallel!
+\end_layout
+
+\begin_layout Subsection
+Alternative simulation
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $\boldsymbol{D}_{t}$
+\end_inset
+
+ where
+\begin_inset Formula 
+\[
+\boldsymbol{D}=\left[\begin{array}{c}
+D_{11}\\
+\vdots\\
+D_{1\#_{a}}\\
+\vdots\\
+D_{\#_{y}\#_{a}}
+\end{array}\right]
+\]
+
+\end_inset
+
+with 
+\begin_inset Formula $\left|\boldsymbol{D}_{t}\right|=1$
+\end_inset
+
+.
+ We have
+\begin_inset Formula 
+\begin{align}
+D_{t+1} & =\tilde{\Pi}^{T}Q^{T}D_{t}\label{eq:D}\\
+ & =\Omega^{T}\nonumber 
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Alternative simulation method 1:
+\end_layout
+
+\begin_layout Standard
+Solve for 
+\begin_inset Formula $D^{\ast}=\tilde{\Pi}^{T}Q^{T}D^{\ast}$
+\end_inset
+
+ using an analytical expression?
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Alternative simulation method 2:
+\end_layout
+
+\begin_layout Standard
+Find 
+\begin_inset Formula $D^{\ast}$
+\end_inset
+
+by
+\begin_inset Formula 
+\begin{align*}
+D^{\ast} & =\lim_{k\rightarrow\infty}\left(\Omega^{T}\right)^{k}D_{0}\\
+ & \approx\left(\Omega^{T}\right)^{K}D_{0}
+\end{align*}
+
+\end_inset
+
+for arbitrary 
+\begin_inset Formula $D_{0}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Model with Aggregate State
+\end_layout
+
+\begin_layout Subsection
+Setup
+\end_layout
+
+\begin_layout Standard
+Consider the problem
+\begin_inset Formula 
+\begin{eqnarray}
+v(y_{t},z_{t},a_{t-1},K_{t-1}) & = & u(c^{\ast}(y_{t},z_{t},a_{t-1},K_{t-1}))+w(y_{t},z_{t},a^{\ast}(y_{t},z_{t},a_{t-1},K_{t-1}),K_{t-1})\label{eq:v-1}\\
+w(y_{t},z_{t},a_{t},K_{t-1}) & = & \beta\mathbb{E}_{t}[v(y_{t+1},z_{t+1},a_{t},K_{t})]\label{eq:w-1}\\
+K_{t+1} & = & \alpha_{0}(z_{t},z_{t+1})+\alpha_{1}(z_{t},z_{t+1})K_{t}\nonumber \\
+a^{\ast}(y_{t},z_{t},a_{t-1},K_{t-1}) & = & R(z_{t},K_{t-1})a_{t-1}+y_{t}-c^{\ast}(y_{t},a_{t-1})\label{eq:a-1}
+\end{eqnarray}
+
+\end_inset
+
+where
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $v$
+\end_inset
+
+ is the 
+\emph on
+pre-decision
+\emph default
+ value function
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $w$
+\end_inset
+
+ is the 
+\emph on
+post-decision
+\emph default
+ value function
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $c^{\ast}$
+\end_inset
+
+ is the 
+\emph on
+optimal
+\emph default
+ consumption function
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $a^{\ast}$
+\end_inset
+
+ is the 
+\emph on
+optimal
+\emph default
+ saving function
+\end_layout
+
+\begin_layout Standard
+and
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $y_{t}$
+\end_inset
+
+ is indexed by 
+\begin_inset Formula $i$
+\end_inset
+
+ and lives on the grid 
+\begin_inset Formula $\mathcal{G}_{y}=\{y^{1},y^{2},\dots,y^{\#_{y}}\}$
+\end_inset
+
+ and transitions exogenously with the transition matrix 
+\begin_inset Formula $\Pi^{y}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $z_{t}$
+\end_inset
+
+ is indexed by 
+\begin_inset Formula $h$
+\end_inset
+
+ and lives on the grid 
+\begin_inset Formula $\mathcal{G}_{z}=\{z^{1},z^{2},\dots,z^{\#_{z}}\}$
+\end_inset
+
+ and transitions exogenously with the transition matrix 
+\begin_inset Formula $\Pi^{z}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $a_{t}$
+\end_inset
+
+ is indexed by 
+\begin_inset Formula $j$
+\end_inset
+
+ and lives on the grid 
+\begin_inset Formula $\mathcal{G}_{a}=\{a^{1},a^{2},\dots,a^{\#_{a}}\}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $K_{t}$
+\end_inset
+
+ is indexed by 
+\begin_inset Formula $k$
+\end_inset
+
+ and lives on the grid 
+\begin_inset Formula $\mathcal{G}_{k}=\{K^{1},K^{2},\dots,K^{\#_{a}}\}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+REPEAT THE ANALYS OF SECTION 1
+\begin_inset Formula 
+\[
+K_{t}=\mathcal{G}_{k}D_{t}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
