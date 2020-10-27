@@ -140,7 +140,7 @@ Consider the problem
 \begin_inset Formula 
 \begin{eqnarray}
 v(e_{t},a_{t-1}) & = & u(c^{\ast}(e_{t},a_{t-1}))+\overline{v}(e_{t},a^{\ast}(e_{t},a_{t-1}))\label{eq:v}\\
-\overline{v}(e_{t},a_{t}) & = & \beta\mathbb{E}_{t}[v(e_{t},y_{t})]\label{eq:vbar}\\
+\overline{v}(e_{t},a_{t}) & = & \beta\mathbb{E}_{t}[v(e_{t+1},a_{t})]\label{eq:vbar}\\
 a^{\ast}(e_{t},a_{t-1}) & = & (1+r)a_{t-1}+we_{t}-c^{\ast}(e_{t},a_{t-1})\label{eq:a}
 \end{eqnarray}
 
@@ -490,7 +490,7 @@ noprefix "false"
  thus becomes
 \begin_inset Formula 
 \begin{align}
-\boldsymbol{\overline{v}} & =\beta\tilde{\Pi}\boldsymbol{v}\label{eq:w_mat}
+\boldsymbol{\overline{v}} & =\beta\tilde{\Pi}\boldsymbol{v}\label{eq:vbar_mat}
 \end{align}
 
 \end_inset
@@ -560,13 +560,21 @@ where
 \[
 q_{ijk}=\begin{cases}
 \frac{a_{ij}^{\text{\ensuremath{\ast}}}-a^{j_{+}-1}}{a^{j_{+}}-a^{j_{+}-1}} & \text{if }j_{+}>1,\text{and }a_{ij}^{\text{\ensuremath{\ast}}}\in[a^{j_{+}-1},a^{j_{+}}]\\
-\frac{a_{ij}^{\text{\ensuremath{\ast}}}-a^{j_{+}}}{a^{j_{+}+1}-a^{j_{+}}} & \text{if }j_{+}<\#_{a},\text{and }a_{ij}^{\text{\ensuremath{\ast}}}\in[a^{\#_{a}},a^{\#_{a}+1}]\\
+\frac{a_{ij}^{\text{\ensuremath{\ast}}}-a^{j_{+}}}{a^{j_{+}+1}-a^{j_{+}}} & \text{if }j_{+}<\#_{a},\text{and }a_{ij}^{\text{\ensuremath{\ast}}}\in[a^{j_{+}},a^{j_{+}+1}]\\
 0 & \text{else}
 \end{cases}
 \]
 
 \end_inset
 
+where by definition 
+\begin_inset Formula $\sum_{j_{+}=1}^{\#_{a}}q_{ijj_{+}}=1$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
 In matrix form eq.
  
 \begin_inset CommandInset ref
@@ -945,7 +953,7 @@ with
 \begin_inset Formula 
 \begin{align}
 D_{t+1} & =\tilde{\Pi}^{T}Q^{T}D_{t}\label{eq:D}\\
- & =\Omega^{T}\nonumber 
+ & =\Omega^{T}D_{t}\nonumber 
 \end{align}
 
 \end_inset
@@ -981,8 +989,8 @@ Find
 by
 \begin_inset Formula 
 \begin{align*}
-D^{\ast} & =\lim_{k\rightarrow\infty}\left(\Omega^{T}\right)^{k}D_{0}\\
- & \approx\left(\Omega^{T}\right)^{K}D_{0}
+D^{\ast} & =\lim_{k\rightarrow\infty}\left(\tilde{\Pi}^{T}\Omega^{T}\right)^{k}D_{0}\\
+ & \approx\left(\tilde{\Pi}^{T}\Omega^{T}\right)^{K}D_{0}
 \end{align*}
 
 \end_inset
@@ -1134,7 +1142,7 @@ and
 \end_layout
 
 \begin_layout Standard
-REPEAT THE ANALYS OF SECTION 
+REPEAT THE ANALYS OF SECTION
 \end_layout
 
 \end_body

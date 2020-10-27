@@ -140,7 +140,7 @@ Consider the problem
 \begin_inset Formula 
 \begin{eqnarray}
 v(e_{t},a_{t-1}) & = & u(c^{\ast}(e_{t},a_{t-1}))+\overline{v}(e_{t},a^{\ast}(e_{t},a_{t-1}))\label{eq:v}\\
-\overline{v}(e_{t},a_{t}) & = & \beta\mathbb{E}_{t}[v(e_{t},y_{t})]\label{eq:vbar}\\
+\overline{v}(e_{t},a_{t}) & = & \beta\mathbb{E}_{t}[v(e_{t+1},a_{t})]\label{eq:vbar}\\
 a^{\ast}(e_{t},a_{t-1}) & = & (1+r)a_{t-1}+we_{t}-c^{\ast}(e_{t},a_{t-1})\label{eq:a}
 \end{eqnarray}
 
@@ -490,7 +490,7 @@ noprefix "false"
  thus becomes
 \begin_inset Formula 
 \begin{align}
-\boldsymbol{\overline{v}} & =\beta\tilde{\Pi}\boldsymbol{v}\label{eq:w_mat}
+\boldsymbol{\overline{v}} & =\beta\tilde{\Pi}\boldsymbol{v}\label{eq:vbar_mat}
 \end{align}
 
 \end_inset
@@ -560,13 +560,21 @@ where
 \[
 q_{ijk}=\begin{cases}
 \frac{a_{ij}^{\text{\ensuremath{\ast}}}-a^{j_{+}-1}}{a^{j_{+}}-a^{j_{+}-1}} & \text{if }j_{+}>1,\text{and }a_{ij}^{\text{\ensuremath{\ast}}}\in[a^{j_{+}-1},a^{j_{+}}]\\
-\frac{a_{ij}^{\text{\ensuremath{\ast}}}-a^{j_{+}}}{a^{j_{+}+1}-a^{j_{+}}} & \text{if }j_{+}<\#_{a},\text{and }a_{ij}^{\text{\ensuremath{\ast}}}\in[a^{\#_{a}},a^{\#_{a}+1}]\\
+\frac{a_{ij}^{\text{\ensuremath{\ast}}}-a^{j_{+}}}{a^{j_{+}+1}-a^{j_{+}}} & \text{if }j_{+}<\#_{a},\text{and }a_{ij}^{\text{\ensuremath{\ast}}}\in[a^{j_{+}},a^{j_{+}+1}]\\
 0 & \text{else}
 \end{cases}
 \]
 
 \end_inset
 
+where 
+\begin_inset Formula $\sum_{j_{+}=1}^{\#_{a}}q_{ijj_{+}}=1$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 In matrix form eq.
  
 \begin_inset CommandInset ref
@@ -635,7 +643,7 @@ q_{i\#_{a}1} & \cdots & \cdots & \cdots & q_{i\#_{a}\#_{a}}
 \end_layout
 
 \begin_layout Subsection
-Alternative solution method
+Alternative solution method(s)
 \end_layout
 
 \begin_layout Standard
@@ -835,7 +843,11 @@ Solution method II:
 \end_layout
 
 \begin_layout Standard
-Same as method one, but where we in step 7 we use
+Same as method one, but where we in step 7 for some high enough 
+\begin_inset Formula $T$
+\end_inset
+
+ use
 \begin_inset Formula 
 \begin{align*}
 \boldsymbol{v} & \approx u(\boldsymbol{c})\left(\sum_{t=0}^{T}\left(\beta\Omega\right)^{t}\right)
@@ -849,9 +861,21 @@ Same as method one, but where we in step 7 we use
 \begin_layout Standard
 
 \series bold
+Observation: 
+\series default
+The 
+\begin_inset Formula $\Omega$
+\end_inset
+
+ is very sparse (lots) of zeros).
+\end_layout
+
+\begin_layout Standard
+
+\series bold
 Question: 
 \series default
-Can we provide som simple formulas for?
+Can we provide some simple formulas for?
 \begin_inset Formula 
 \begin{align*}
 \Omega & =\\
@@ -864,11 +888,17 @@ Can we provide som simple formulas for?
 
 \end_inset
 
-
+Target: Avoid multiplying large matrices, but construct them from smaller
+ matrices.
 \end_layout
 
 \begin_layout Standard
-In particular, might
+In particular, might be able to provide formulas for different segments
+ of 
+\begin_inset Formula $\boldsymbol{v}$
+\end_inset
+
+as follows?
 \begin_inset Formula 
 \[
 \boldsymbol{v}_{i:}=\left[\begin{array}{c}
@@ -884,24 +914,38 @@ v_{i\#_{a}}
 \end_layout
 
 \begin_layout Standard
-Can this be done in parallel?
+
+\series bold
+Idea:
+\series default
+ If so, this can be done in parallel!
 \end_layout
 
 \begin_layout Subsection
-Simulation
+Alternative simulation
 \end_layout
 
 \begin_layout Standard
 Let 
-\begin_inset Formula $D_{t}$
+\begin_inset Formula $\boldsymbol{D}_{t}$
 \end_inset
 
- with 
-\begin_inset Formula $\left|D_{t}\right|=1$
+ where
+\begin_inset Formula 
+\[
+\boldsymbol{D}=\left[\begin{array}{c}
+D_{11}\\
+\vdots\\
+D_{1\#_{a}}\\
+\vdots\\
+D_{\#_{y}\#_{a}}
+\end{array}\right]
+\]
+
 \end_inset
 
- be the distribution on 
-\begin_inset Formula $\mathcal{G}_{y}\times\mathcal{G}_{a}$
+with 
+\begin_inset Formula $\left|\boldsymbol{D}_{t}\right|=1$
 \end_inset
 
 .
@@ -915,6 +959,47 @@ D_{t+1} & =\tilde{\Pi}^{T}Q^{T}D_{t}\label{eq:D}\\
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Alternative simulation method 1:
+\end_layout
+
+\begin_layout Standard
+Solve for 
+\begin_inset Formula $D^{\ast}=\tilde{\Pi}^{T}Q^{T}D^{\ast}$
+\end_inset
+
+ using an analytical expression?
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Alternative simulation method 2:
+\end_layout
+
+\begin_layout Standard
+Find 
+\begin_inset Formula $D^{\ast}$
+\end_inset
+
+by
+\begin_inset Formula 
+\begin{align*}
+D^{\ast} & =\lim_{k\rightarrow\infty}\left(\Omega^{T}\right)^{k}D_{0}\\
+ & \approx\left(\Omega^{T}\right)^{K}D_{0}
+\end{align*}
+
+\end_inset
+
+for arbitrary 
+\begin_inset Formula $D_{0}$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Section
@@ -1057,15 +1142,7 @@ and
 \end_layout
 
 \begin_layout Standard
-REPEAT THE ANALYS OF SECTION 1
-\begin_inset Formula 
-\[
-K_{t}=\mathcal{G}_{k}D_{t}
-\]
-
-\end_inset
-
-
+REPEAT THE ANALYS OF SECTION
 \end_layout
 
 \end_body
