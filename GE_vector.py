@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""GEModelClass
-
-Solves and simulates a buffer-stock consumption-saving problem for use in a general equilibrium model
-
-"""
-
 ##############
 # 1. imports #
 ##############
@@ -111,7 +104,7 @@ class GEModelClass(ModelClass):
         sol.m = (1+r)*par.a_grid[np.newaxis,:] + w*par.e_grid[:,np.newaxis]
         sol.a = 0.90*sol.m # pure guess
         sol.c = sol.m - sol.a 
-        sol.Va = (1+r)*sol.c**(-par.sigma) if Va is None else Va
+        sol.Va =  #Mit gæt. Det skal være en vektor.
 
         it = 0
         while True:
@@ -179,14 +172,13 @@ def solve_backwards(par,r,w,Va_p,Va,a,c,m):
     """ perform time iteration step with Va_p from previous iteration """
 
     # a. post-decision
-    marg_u_plus = (par.beta*par.e_trans)@Va_p #@ matrix multiplication
-    print(np.shape(marg_u_plus), np.shape(par.e_trans),np.shape(Va_p))
+    marg_u_plus = (par.beta*par.e_trans)@Va_p
 
     # b. egm loop
     for i_e in prange(par.Ne):
         
         # i. egm
-        c_endo = marg_u_plus[i_e]**(-1/par.sigma)
+        c_endo = marg_u_plus[i_e]**(-1/par.sigma) #Hvorfor -1/sigma?
         m_endo = c_endo + par.a_grid
 
         # ii. interpolation
