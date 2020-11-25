@@ -77,6 +77,7 @@ class GEModelClass(ModelClass):
         sol.c = np.zeros(sol_shape)
         sol.V = np.zeros(sol_shape)
         sol.Va = np.zeros(sol_shape)
+        sol.Vbar = np.zeros(sol_shape)
 
         # b. simulation
         sim_shape = (par.simN,)
@@ -123,7 +124,7 @@ class GEModelClass(ModelClass):
             V_old = sol.V.copy()
 
             # ii. solve backwards
-            solve_backwards(par,r,w,sol.Va,sol.Va,sol.a,sol.c,sol.m,sol.V,sol.V)
+            solve_backwards(par,r,w,sol.Va,sol.Va,sol.a,sol.c,sol.m,sol.V,sol.V,sol.Vbar)
 
             # iii. check
             if np.max(np.abs(sol.a-a_old)) < par.solve_tol: break
@@ -182,12 +183,12 @@ class GEModelClass(ModelClass):
 ######################
 
 @njit(parallel=True)        
-def solve_backwards(par,r,w,Va_p,Va,a,c,m,V_p,V):
+def solve_backwards(par,r,w,Va_p,Va,a,c,m,V_p,V,Vbar):
     """ perform time iteration step with Va_p from previous iteration """
 
     # a. post-decision
     marg_u_plus = (par.beta*par.e_trans)@Va_p
-    Vbar = (par.beta*par.e_trans)@V_p
+    Vbar[:,:] = (par.beta*par.e_trans)@V_p
 
     # b. egm loop
     for i_e in prange(par.Ne):
