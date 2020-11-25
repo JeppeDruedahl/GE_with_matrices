@@ -136,6 +136,9 @@ class GEModelClass(ModelClass):
             print(f'household problem solved in {elapsed(t0)} [{it} iterations]')
             print(f'[value function abs. max diff. is {np.max(np.abs(sol.V-V_old)):.8f}]')
 
+        if np.max(par.a_grid) < np.max(sol.a):
+            print(f'decisions are made outside the grid')
+
     def simulate(self,seed=1917,do_print=False):
         """ simulate the model """
         
@@ -185,11 +188,6 @@ def solve_backwards(par,r,w,Va_p,Va,a,c,m,V_p,V):
     # a. post-decision
     marg_u_plus = (par.beta*par.e_trans)@Va_p
     Vbar = (par.beta*par.e_trans)@V_p
-        
-    # convert from domain ]-\infty:0[ to ]0:infty[
-    # -> extrapolation does not break domain does
-
-    inv_Vbar = -1.0/Vbar 
 
     # b. egm loop
     for i_e in prange(par.Ne):
@@ -208,8 +206,7 @@ def solve_backwards(par,r,w,Va_p,Va,a,c,m,V_p,V):
 
         # iv. value function
         for i_a in range(par.Na):
-            inv_Vbar_now = linear_interp.interp_1d(par.a_grid,inv_Vbar[i_e],a[i_e,i_a])
-            Vbar_now = -inv_Vbar_now # convert back
+            Vbar_now = linear_interp.interp_1d(par.a_grid,Vbar[i_e],a[i_e,i_a])
             V[i_e,i_a] = c[i_e,i_a]**(1-par.sigma)/(1-par.sigma) + Vbar_now
 
 @njit(parallel=True)        
