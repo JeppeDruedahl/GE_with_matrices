@@ -47,11 +47,11 @@ class GEModelClass(ModelClass):
         # d. income parameters
         par.rho = 0.97 # AR(1) parameter
         par.sigma_e = 0.25 # std. of persistent shock
-        par.Ne = 5 # number of states
+        par.Ne = 11 # number of states
 
         # f. grids         
         par.a_max = 200.0 # maximum point in grid for a
-        par.Na = 500 # number of grid points
+        par.Na = 1000 # number of grid points
 
         # g. misc.
         par.simN = 1_000_000 # number of households in MC simulation
@@ -207,6 +207,7 @@ def solve_backwards(par,r,w,Va_p,Va,a,c,m,V_p,V,Vbar):
 
         # iv. value function
         for i_a in range(par.Na):
+            a[i_e,i_a] = np.fmax(a[i_e,i_a],0)
             Vbar_now = linear_interp.interp_1d(par.a_grid,Vbar[i_e],a[i_e,i_a])
             V[i_e,i_a] = c[i_e,i_a]**(1-par.sigma)/(1-par.sigma) + Vbar_now
 

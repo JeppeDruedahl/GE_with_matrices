@@ -1,7 +1,6 @@
 import time
 import numpy as np
 from scipy.linalg import block_diag
-from numba import njit, prange
 from consav.misc import elapsed, markov_rouwenhorst, choice
 from consav import linear_interp
 
@@ -33,20 +32,21 @@ def equilogspace(x_min,x_max,n):
 
 ### Make v_a ####
 def asds(l,v_0):
-    a = equilogspace(0,200,1000)
+    Na = 1000
+    a = equilogspace(0,200,Na)
     new_v_0 = np.array_split(v_0,l)
-    v_a = np.zeros(1000*l)
+    v_a = np.zeros(Na*l)
     for i in range(l):
         #new_v_0[0]
         # j = 1
-        v_a[i*1000] = (new_v_0[i][1]-new_v_0[i][0])/(a[1]-a[0])
+        v_a[i*Na] = (new_v_0[i][1]-new_v_0[i][0])/(a[1]-a[0])
 
         # j inbetween
-        for k in range(999):
-            v_a[(1+k)+i*1000] = 0.5*((new_v_0[i][k+1]-new_v_0[i][k])/(a[k+1]-a[k]))+0.5*((new_v_0[i][k]-new_v_0[i][k-1])/(a[k]-a[k-1]))
+        for k in range((Na-1)):
+            v_a[(1+k)+i*Na] = 0.5*((new_v_0[i][k+1]-new_v_0[i][k])/(a[k+1]-a[k]))+0.5*((new_v_0[i][k]-new_v_0[i][k-1])/(a[k]-a[k-1]))
             
         # j = last
-        v_a[999+i*1000]= (new_v_0[i][999]-new_v_0[i][998])/(a[999]-a[998])
+        v_a[(Na-1)+i*Na]= (new_v_0[i][(Na-1)]-new_v_0[i][(Na-2)])/(a[(Na-1)]-a[(Na-2)])
     
     return v_a
     
@@ -83,7 +83,8 @@ def matrix(l,n,v_a):
 
     for k in range(Ne):
         linear_interp.interp_1d_vec(new_m_endo[k],a_grid,m[k],a[k])
-        a[k,0] = np.fmax(a[k,0],0)
+        for i_a in range(Na):
+            a[k,i_a] = np.fmax(a[k,i_a],0)
         values.append(m[k]-a[k])
 
     #print(f'new_m_endo[0]:{new_m_endo[0]}')
@@ -96,25 +97,27 @@ def matrix(l,n,v_a):
 
     #Create Q^
     lis = []
+    Q = np.zeros(Ne*Na)
+    #calculate
     for e in range(Ne):
-        q = np.zeros((Na,Na))
+        q = np.zeros((Na,Na)) #create each Q_i
         for k in range(Na):
             opt = a[e,k]
-            if opt > np.max(a_grid):
-                q[k] = 0
+            if opt >= np.max(a_grid):
+                q[k,Na-1] = 1 #If opt equals the end point
 
-            elif opt < np.min(a_grid):
-                q[k] = 0
+            elif opt <= np.min(a_grid):
+                q[k,0] = 1 #If opt equals the start point
 
             else:   
-                a3 = np.min(np.nonzero(opt<=a_grid))
-                a4 = np.max(np.nonzero(opt>=a_grid))
-                q[k,a3] = (a_grid[a3]-opt)/(a_grid[a3]-a_grid[a3-1]) #Har byttet om på opt og a_grid
-                q[k,a4] = (opt-a_grid[a4])/(a_grid[a4+1]-a_grid[a4])
-                #print(opt,a_grid[a3],a_grid[a4]) Ser rigtig nok ud
-        #print(q[980])
+                a_high = np.min(np.nonzero(opt<=a_grid)) #create points
+                a_low = np.max(np.nonzero(opt>=a_grid))
+                q[k,a_low] = (a_grid[a_low+1]-opt)/(a_grid[a_low+1]-a_grid[a_low])
+                q[k,a_high] = (opt-a_grid[a_high-1])/(a_grid[a_high]-a_grid[a_high-1])
         lis.append(q)
-    Q = block_diag(lis[0],lis[1],lis[2],lis[3],lis[4],lis[5],lis[6],lis[7],lis[8],lis[9],lis[10])
+        
+    Q = block_diag(*lis) #make block matrix from Q's
+
 
     omega = Q@A
     
