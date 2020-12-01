@@ -989,8 +989,8 @@ Find
 by
 \begin_inset Formula 
 \begin{align*}
-D^{\ast} & =\lim_{k\rightarrow\infty}\left(\Omega^{T}\right)^{k}D_{0}\\
- & \approx\left(\Omega^{T}\right)^{K}D_{0}
+D^{\ast} & =\lim_{k\rightarrow\infty}\left(\tilde{\Pi}^{T}\Omega^{T}\right)^{k}D_{0}\\
+ & \approx\left(\tilde{\Pi}^{T}\Omega^{T}\right)^{K}D_{0}
 \end{align*}
 
 \end_inset

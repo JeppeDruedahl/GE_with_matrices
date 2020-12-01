@@ -567,11 +567,11 @@ q_{ijk}=\begin{cases}
 
 \end_inset
 
-where by definition 
+where 
 \begin_inset Formula $\sum_{j_{+}=1}^{\#_{a}}q_{ijj_{+}}=1$
 \end_inset
 
-.
+
 \end_layout
 
 \begin_layout Standard
@@ -953,7 +953,7 @@ with
 \begin_inset Formula 
 \begin{align}
 D_{t+1} & =\tilde{\Pi}^{T}Q^{T}D_{t}\label{eq:D}\\
- & =\Omega^{T}D_{t}\nonumber 
+ & =\Omega^{T}\nonumber 
 \end{align}
 
 \end_inset
@@ -989,8 +989,8 @@ Find
 by
 \begin_inset Formula 
 \begin{align*}
-D^{\ast} & =\lim_{k\rightarrow\infty}\left(\tilde{\Pi}^{T}\Omega^{T}\right)^{k}D_{0}\\
- & \approx\left(\tilde{\Pi}^{T}\Omega^{T}\right)^{K}D_{0}
+D^{\ast} & =\lim_{k\rightarrow\infty}\left(\Omega^{T}\right)^{k}D_{0}\\
+ & \approx\left(\Omega^{T}\right)^{K}D_{0}
 \end{align*}
 
 \end_inset

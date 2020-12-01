@@ -47,11 +47,11 @@ class GEModelClass(ModelClass):
         # d. income parameters
         par.rho = 0.97 # AR(1) parameter
         par.sigma_e = 0.25 # std. of persistent shock
-        par.Ne = 11 # number of states
+        par.Ne = 7 # number of states
 
         # f. grids         
         par.a_max = 200.0 # maximum point in grid for a
-        par.Na = 1000 # number of grid points
+        par.Na = 500 # number of grid points
 
         # g. misc.
         par.simN = 1_000_000 # number of households in MC simulation
